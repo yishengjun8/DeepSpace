@@ -15,7 +15,7 @@ namespace DeepSpace
 
     public:
         DSReturn SayHello(int set);
-        DSReturn SayGoodBy(int set);
+        DSReturn SayGoodBy();
         DSReturn SetData(int set);
     protected:
         int myData;

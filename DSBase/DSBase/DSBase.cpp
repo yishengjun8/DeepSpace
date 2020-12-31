@@ -23,7 +23,6 @@ DSReturn __DeepSpace::DSRegisterObject(DSStr object, DSFactoryHand* hand)
 	return ret.second ? DSFINE : DSFAIL;
 }
 
-
 DeepSpace::DSBase::DSBase()
 {
 	InitializeCriticalSection(&myCriticalSection);
@@ -35,6 +34,16 @@ DeepSpace::DSBase::~DSBase()
 }
 
 DSReturn DeepSpace::DSBase::AutoFunc(DSStr func ...)
+{
+	return DSFINE;
+}
+
+DSReturn DeepSpace::DSBase::FuncName(DSStr* ret)
+{
+	return DSFINE;
+}
+
+DSReturn DeepSpace::DSBase::FuncInfor(DSStr* ret)
 {
 	return DSFINE;
 }

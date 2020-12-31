@@ -230,8 +230,7 @@ struct DSAutoFuncInfor\
 {\
 	std::wstring  myName;\
 	std::wstring myAllName;\
-	int myArgv = 0;\
-	int myID = 0;\
+	int myID;\
 };\
 std::map<DSStr, DSAutoFuncInfor*> DSAutoFuncMap;\
 typedef std::map<DSStr,DSAutoFuncInfor*>::value_type DSAutoFuncValue;\
@@ -299,7 +298,6 @@ return ret;\
 #define __DSOBJECT_AUTOFUNC_REG(obj, func, id) \
 infor = new DSAutoFuncInfor;\
 infor->myID = id;\
-infor->myArgv = DSArgNum(&obj::func);\
 infor->myName = L#func;\
 mbstowcs_s(&n, typeName, 1024,\
 	typeid(&obj::func).name(), 1023);\
