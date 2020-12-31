@@ -30,6 +30,7 @@ DeepSpace::DSBase::DSBase()
 
 DeepSpace::DSBase::~DSBase()
 {
+	DSCODELOCK(this);
 	DeleteCriticalSection(&myCriticalSection);
 }
 

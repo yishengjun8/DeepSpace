@@ -11,38 +11,45 @@ DSOBJECT_INIT_2(DSBaseTest00);
 
 DeepSpace::DSBaseTest00::DSBaseTest00()
 {
+	DSCODELOCK(this);
 	myData = 10;
 }
 
 DeepSpace::DSBaseTest00::~DSBaseTest00()
 {
+	DSCODELOCK(this);
 }
 
 DSReturn DeepSpace::DSBaseTest00::Clone(DSBase** ret)
 {
-	return DSReturn();
+	DSCODELOCK(this);
+	return DSFINE;
 }
 
 DSBase& DeepSpace::DSBaseTest00::operator=(DSBase& rhs)
 {
+	DSCODELOCK(this);
 	rhs.AutoFunc(L"SetData", myData);
 	return *this;
 }
 
 DSReturn DeepSpace::DSBaseTest00::SayHello(int set)
 {
+	DSCODELOCK(this);
 	std::cout << "Hello DSBaseTest00 SayHello!" << myData << std::endl;
 	return DSFINE;
 }
 
 DSReturn DeepSpace::DSBaseTest00::SayGoodBy()
 {
+	DSCODELOCK(this);
 	std::cout << "Hello DSBaseTest00 SayGoodBy!" << myData << std::endl;
 	return DSFINE;
 }
 
 DSReturn DeepSpace::DSBaseTest00::SetData(int set)
 {
+	DSCODELOCK(this);
 	myData = set;
 	return DSFINE;
 }
