@@ -218,7 +218,7 @@ namespace DeepSpace
 protected:\
 	DSReturn obj##Init();\
 public:\
-	DSReturn AutoFunc(DSStr func...);\
+	DSReturn AutoFunc(DSStr setFunc...);\
 	DSReturn FuncName(DSStr* ret);\
 	DSReturn FuncInfor(DSStr* ret);\
 	DSReturn ObjectName(DSStr* ret);
@@ -281,14 +281,14 @@ public:\
 	}\
 };\
 auto obj##Hand = new obj##FactoryHand(L#obj);\
-DSReturn obj::AutoFunc(DSStr func...)\
+DSReturn obj::AutoFunc(DSStr setFunc...)\
 {\
 	DSReturn ret = DSFAIL;\
 	va_list argc;\
-	va_start(argc, func);\
+	va_start(argc, setFunc);\
 	obj##DSAutoFuncIterator iter = obj##DSAutoFuncMap.end();\
 	BeginSwitch:\
-	iter = obj##DSAutoFuncMap.find(func); \
+	iter = obj##DSAutoFuncMap.find(setFunc); \
 	if (iter != obj##DSAutoFuncMap.end())\
 	{\
 		int caID = iter->second->myID;\
@@ -298,7 +298,7 @@ DSReturn obj::AutoFunc(DSStr func...)\
 #define __DSOBJECT_INIT_2(obj, father) \
 		case -1:\
 		{\
-			func = va_arg(argc, DSStr);\
+			setFunc = va_arg(argc, DSStr);\
 			argc = va_arg(argc, va_list);\
 			goto BeginSwitch;\
 			break;\
@@ -307,7 +307,7 @@ DSReturn obj::AutoFunc(DSStr func...)\
 	}\
 	else\
 	{\
-		ret = father::AutoFunc(L"AutoFunc", func, argc); \
+		ret = father::AutoFunc(L"AutoFunc", setFunc, argc); \
 	}\
 	return ret;\
 }
