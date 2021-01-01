@@ -25,7 +25,8 @@
 *		如果子类实现了一个和父类同名的方法，并且都注册了 AutoFunc，
 *	那么，通过 AutoFunc 调用该方法的顺序为：父类->子类，如果父类失
 *	败，那么将不会执行子类方法，直接返回 DSFAIL 。
-* 
+*		如果继承方式为：基类->类0->类1->类2，并且类0 、类2都注册了
+*	'Hello()'，调用顺序为：类0::Hello()->类2::Hello()。
 */
 #ifdef DS_BUILDING
 #define DS_PORT __declspec(dllexport)
@@ -134,7 +135,7 @@ namespace DeepSpace
 	//强制 所有的子类必须在其.cpp中优先顺序调用下列三个初始化
 #define DSOBJECT_INIT_0(obj) __DSOBJECT_INIT_0(obj)
 #define DSOBJECT_INIT_1(obj) __DSOBJECT_INIT_1(obj)
-#define DSOBJECT_INIT_2(obj) __DSOBJECT_INIT_2(obj)
+#define DSOBJECT_INIT_2(obj, father) __DSOBJECT_INIT_2(obj, father)
 
 	//可选 注册反射调用 -强制 只能在INIT_0-INIT_1之间使用
 #define DSOBJECT_AUTOFUNC_REG(obj, func, id) __DSOBJECT_AUTOFUNC_REG(obj, func, id) 
@@ -226,19 +227,19 @@ public:\
 using namespace DeepSpace;\
 using namespace __DeepSpace;\
 using DeepSpace::obj;\
-struct DSAutoFuncInfor\
+struct obj##DSAutoFuncInfor\
 {\
+	int myID = 0;\
 	std::wstring  myName;\
 	std::wstring myAllName;\
-	int myArgv = 0;\
-	int myID = 0;\
 };\
-std::map<DSStr, DSAutoFuncInfor*> DSAutoFuncMap;\
-typedef std::map<DSStr,DSAutoFuncInfor*>::value_type DSAutoFuncValue;\
+std::map<DSStr, obj##DSAutoFuncInfor*> obj##DSAutoFuncMap;\
+typedef std::map<DSStr,obj##DSAutoFuncInfor*>::value_type obj##DSAutoFuncValue;\
+typedef std::map<DSStr,obj##DSAutoFuncInfor*>::iterator obj##DSAutoFuncIterator;\
 DSReturn obj::FuncName(DSStr* ret)\
 {\
 	*ret = L"";\
-	for(auto i : DSAutoFuncMap)\
+	for(auto i : obj##DSAutoFuncMap)\
 	{\
 		*ret += i.second->myName;\
 		*ret += L"\n";\
@@ -248,7 +249,7 @@ DSReturn obj::FuncName(DSStr* ret)\
 DSReturn obj::FuncInfor(DSStr* ret)\
 {\
 	*ret = L"";\
-	for(auto i : DSAutoFuncMap)\
+	for(auto i : obj##DSAutoFuncMap)\
 	{\
 		*ret += i.second->myAllName;\
 		*ret += L"\n";\
@@ -267,8 +268,9 @@ public:\
 	obj##FactoryHand(DSStr object)\
 		: DSFactoryHand(object)\
 	{\
-		DSAutoFuncInfor* infor = nullptr;\
-		WCHAR typeName[1024]; size_t n = 0;
+		obj##DSAutoFuncInfor* infor = nullptr;\
+		WCHAR typeName[1024]; size_t n = 0;\
+		DSOBJECT_AUTOFUNC_REG(obj, AutoFunc, -1)
 
 #define __DSOBJECT_INIT_1(obj) \
 	};\
@@ -282,29 +284,42 @@ auto obj##Hand = new obj##FactoryHand(L#obj);\
 DSReturn obj::AutoFunc(DSStr func...)\
 {\
 	DSReturn ret = DSFAIL;\
-	auto iter = DSAutoFuncMap.find(func);\
-	if (iter != DSAutoFuncMap.end())\
+	va_list argc;\
+	va_start(argc, func);\
+	obj##DSAutoFuncIterator iter = obj##DSAutoFuncMap.end();\
+	BeginSwitch:\
+	iter = obj##DSAutoFuncMap.find(func); \
+	if (iter != obj##DSAutoFuncMap.end())\
 	{\
-		va_list argc;\
-		va_start(argc, func);\
-		switch (iter->second->myID)\
+		int caID = iter->second->myID;\
+		switch (caID)\
 		{
 
-#define __DSOBJECT_INIT_2(obj) \
+#define __DSOBJECT_INIT_2(obj, father) \
+		case -1:\
+		{\
+			func = va_arg(argc, DSStr);\
+			argc = va_arg(argc, va_list);\
+			goto BeginSwitch;\
+			break;\
+		}\
 		}\
 	}\
-return ret;\
+	else\
+	{\
+		ret = father::AutoFunc(L"AutoFunc", func, argc); \
+	}\
+	return ret;\
 }
 
 #define __DSOBJECT_AUTOFUNC_REG(obj, func, id) \
-infor = new DSAutoFuncInfor;\
+infor = new obj##DSAutoFuncInfor;\
 infor->myID = id;\
-infor->myArgv = DSArgNum(&obj::func);\
 infor->myName = L#func;\
 mbstowcs_s(&n, typeName, 1024,\
 	typeid(&obj::func).name(), 1023);\
 infor->myAllName = typeName;\
-DSAutoFuncMap.insert(DSAutoFuncValue(L#func, infor));
+obj##DSAutoFuncMap.insert(obj##DSAutoFuncValue(L#func, infor));
 
 #define __DSOBJECT_AUTOFUNC_CASE_0(obj, father, func, id) \
 case id:\

@@ -13,7 +13,7 @@ int main()
 
     DSReturn dr;
 
-    dr = DSFactory(L"DSBaseTest00", &myBase);
+    dr = DSFactory(L"DSBaseTest02", &myBase);
     if (DS_FAILED(dr))
     {
         cout << "DSFactory DS_FAILED\n";
@@ -30,17 +30,18 @@ int main()
     dr = myBase->FuncName(&autoFuncName);
     if (DS_FAILED(dr))
     {
-        cout << "SayHello DS_FAILED\n";
+        cout << "FuncName DS_FAILED\n";
     }
-    wcout << autoFuncName << endl;
+    wcout << L"\n" << autoFuncName << endl;
 
     dr = myBase->FuncInfor(&autoFuncName);
     if (DS_FAILED(dr))
     {
-        cout << "SayHello DS_FAILED\n";
+        cout << "FuncInfor DS_FAILED\n";
     }
     wcout << autoFuncName << endl;
 
+    cout << typeid(DSStr).name() << endl;
 }
 
 using namespace std;

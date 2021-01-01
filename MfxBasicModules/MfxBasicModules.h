@@ -77,6 +77,7 @@ namespace MicroFlakeX
 
 	typedef std::map<MfxStrW, MfxAutoFunc_Value*> MfxAutoFunc_Map;
 	typedef MfxAutoFunc_Map::value_type MfxAutoFunc_Map_elem;
+	//MfxAutoFunc_Map::
 }
 
 //MfxÃ¶¾Ù

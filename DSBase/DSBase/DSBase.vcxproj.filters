@@ -24,6 +24,12 @@
     <ClInclude Include="DSBaseTest00.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DSBaseTest01.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DSBaseTest02.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -36,6 +42,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DSBaseTest00.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSBaseTest01.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DSBaseTest02.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

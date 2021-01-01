@@ -153,12 +153,16 @@
   <ItemGroup>
     <ClInclude Include="DSBase.h" />
     <ClInclude Include="DSBaseTest00.h" />
+    <ClInclude Include="DSBaseTest01.h" />
+    <ClInclude Include="DSBaseTest02.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="DSBase.cpp" />
     <ClCompile Include="DSBaseTest00.cpp" />
+    <ClCompile Include="DSBaseTest01.cpp" />
+    <ClCompile Include="DSBaseTest02.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
