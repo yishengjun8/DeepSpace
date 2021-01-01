@@ -11,14 +11,18 @@ DSOBJECT_INIT_2(DSBaseTest02, DSBaseTest01);
 
 DeepSpace::DSBaseTest02::DSBaseTest02()
 {
+	DSCODELOCK(this);
+	myData = 200;
 }
 
 DeepSpace::DSBaseTest02::~DSBaseTest02()
 {
+	DSCODELOCK(this);
 }
 
 DSReturn DeepSpace::DSBaseTest02::Clone(DSBase** ret)
 {
+	DSCODELOCK(this);
 	return DSReturn();
 }
 

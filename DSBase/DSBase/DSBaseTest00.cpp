@@ -12,7 +12,7 @@ DSOBJECT_INIT_2(DSBaseTest00, DSBase);
 DeepSpace::DSBaseTest00::DSBaseTest00()
 {
 	DSCODELOCK(this);
-	myData = 10;
+	myData = 0;
 }
 
 DeepSpace::DSBaseTest00::~DSBaseTest00()
