@@ -25,7 +25,7 @@ DSBase& DeepSpace::DSWorld::operator=(DSBase& rhs)
 	return *this;
 }
 
-bool DeepSpace::DSWorld::operator==(DSBase& rhs)
+BOOL DeepSpace::DSWorld::operator==(DSBase& rhs)
 {
-	return false;
+	return 0;
 }

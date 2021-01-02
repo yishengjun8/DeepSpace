@@ -24,6 +24,11 @@ DSBase& DeepSpace::DSRectF::operator=(DSBase& rhs)
 	return *this;
 }
 
+BOOL DeepSpace::DSRectF::operator==(DSBase& rhs)
+{
+	return 0;
+}
+
 DSOBJECT_INIT_0(DSSizeF)
 DSOBJECT_INIT_1(DSSizeF)
 DSOBJECT_INIT_2(DSSizeF, DSBase);
@@ -45,6 +50,11 @@ DSBase& DeepSpace::DSSizeF::operator=(DSBase& rhs)
 {
 	// TODO: 在此处插入 return 语句
 	return *this;
+}
+
+BOOL DeepSpace::DSSizeF::operator==(DSBase& rhs)
+{
+	return 0;
 }
 
 DSOBJECT_INIT_0(DSPointF)
@@ -70,10 +80,10 @@ DSBase& DeepSpace::DSPointF::operator=(DSBase& rhs)
 	return *this;
 }
 
-bool DeepSpace::DSPointF::operator==(DSBase& rhs)
+BOOL DeepSpace::DSPointF::operator==(DSBase& rhs)
 {
 	// TODO: 在此处插入 return 语句
-	return true;
+	return 0;
 }
 
 DSOBJECT_INIT_0(DSColorF)
@@ -99,7 +109,7 @@ DSBase& DeepSpace::DSColorF::operator=(DSBase& rhs)
 	return *this;
 }
 
-bool DeepSpace::DSColorF::operator==(DSBase& rhs)
+BOOL DeepSpace::DSColorF::operator==(DSBase& rhs)
 {
-	return false;
+	return 0;
 }

@@ -63,41 +63,21 @@ namespace DeepSpace
 	DS_PORT typedef std::wstring DSStr;
 }
 
-//公开 类 - 函数 - 模板
+//公开 类 - 模板
 namespace DeepSpace
 {
-	//基类
 	class DS_PORT DSBase;
-	//线程锁
 	class DS_PORT DSLock;
 
+	//DS模板
+
+}
+
+//公开 函数
+namespace DeepSpace
+{
 	//DS工厂
 	DS_PORT DSReturn DSFactory(DSStr object, DSBase** ret);
-
-	//DS模板
-	template<typename Func>
-	struct DSArgNum_;
-	template<typename R, class O, typename... Args>
-	struct DSArgNum_<R(O::*)(Args...)> { static const int num = sizeof...(Args); };
-	template<typename Func>
-	int DSArgNum(Func) { return DSArgNum_<Func>::num; };
-
-	template <class R, class O, class A1, class... Args>
-	A1 DSArg1(R(O::*)(A1, Args...)) { return A1(); };
-	template <class R, class O, class A1, class A2, class... Args>
-	A2 DSArg2(R(O::*)(A1, A2, Args...)) { return A2(); };
-	template <class R, class O, class A1, class A2, class A3, class... Args>
-	A3 DSArg3(R(O::*)(A1, A2, A3, Args...)) { return A3(); };
-	template <class R, class O, class A1, class A2, class A3, class A4, class... Args>
-	A4 DSArg4(R(O::*)(A1, A2, A3, A4, Args...)) { return A4(); };
-	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class... Args>
-	A5 DSArg5(R(O::*)(A1, A2, A3, A4, A5, Args...)) { return A5(); };
-	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class A6, class... Args>
-	A6 DSArg6(R(O::*)(A1, A2, A3, A4, A5, A6, Args...)) { return A6(); };
-	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class... Args>
-	A7 DSArg7(R(O::*)(A1, A2, A3, A4, A5, A6, A7, Args...)) { return A7(); };
-	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class... Args>
-	A8 DSArg8(R(O::*)(A1, A2, A3, A4, A5, A6, A7, A8, Args...)) { return A8(); };
 }
 
 //公开 宏
@@ -156,14 +136,16 @@ namespace DeepSpace
 		virtual ~DSBase();
 		virtual DSReturn Clone(DSBase** ret);
 		virtual DSBase& operator=(DSBase& rhs);
-		virtual bool operator==(DSBase& rhs);
+		virtual BOOL operator==(DSBase& rhs);
 
 	public: 
 		virtual DSReturn AutoFunc(DSStr func...);
 		virtual DSReturn FuncName(DSStr* ret);
 		virtual DSReturn FuncInfor(DSStr* ret);
 		virtual DSReturn ObjectName(DSStr* ret);
+		virtual DSReturn ObjectFloor(UINT* ret);
 	protected:
+		UINT myFloor;
 		CRITICAL_SECTION myCriticalSection;
 	};
 
@@ -191,7 +173,29 @@ namespace __DeepSpace
 //公开 模板实现
 namespace DeepSpace
 {
+	template<typename Func>
+	struct DSArgNum_;
+	template<typename R, class O, typename... Args>
+	struct DSArgNum_<R(O::*)(Args...)> { static const int num = sizeof...(Args); };
+	template<typename Func>
+	int DSArgNum(Func) { return DSArgNum_<Func>::num; };
 
+	template <class R, class O, class A1, class... Args>
+	A1 DSArg1(R(O::*)(A1, Args...)) { return A1(); };
+	template <class R, class O, class A1, class A2, class... Args>
+	A2 DSArg2(R(O::*)(A1, A2, Args...)) { return A2(); };
+	template <class R, class O, class A1, class A2, class A3, class... Args>
+	A3 DSArg3(R(O::*)(A1, A2, A3, Args...)) { return A3(); };
+	template <class R, class O, class A1, class A2, class A3, class A4, class... Args>
+	A4 DSArg4(R(O::*)(A1, A2, A3, A4, Args...)) { return A4(); };
+	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class... Args>
+	A5 DSArg5(R(O::*)(A1, A2, A3, A4, A5, Args...)) { return A5(); };
+	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class A6, class... Args>
+	A6 DSArg6(R(O::*)(A1, A2, A3, A4, A5, A6, Args...)) { return A6(); };
+	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class... Args>
+	A7 DSArg7(R(O::*)(A1, A2, A3, A4, A5, A6, A7, Args...)) { return A7(); };
+	template <class R, class O, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class... Args>
+	A8 DSArg8(R(O::*)(A1, A2, A3, A4, A5, A6, A7, A8, Args...)) { return A8(); };
 
 }
 
@@ -212,6 +216,7 @@ public:\
 	DSReturn FuncName(DSStr* ret);\
 	DSReturn FuncInfor(DSStr* ret);\
 	DSReturn ObjectName(DSStr* ret);
+	
 
 #define __DSOBJECT_INIT_0(obj) \
 using namespace DeepSpace;\
@@ -228,6 +233,7 @@ typedef std::map<DSStr,obj##DSAutoFuncInfor*>::value_type obj##DSAutoFuncValue;\
 typedef std::map<DSStr,obj##DSAutoFuncInfor*>::iterator obj##DSAutoFuncIterator;\
 DSReturn obj::FuncName(DSStr* ret)\
 {\
+	DSCODELOCK(this);\
 	*ret = L"";\
 	for(auto i : obj##DSAutoFuncMap)\
 	{\
@@ -238,6 +244,7 @@ DSReturn obj::FuncName(DSStr* ret)\
 }\
 DSReturn obj::FuncInfor(DSStr* ret)\
 {\
+	DSCODELOCK(this);\
 	*ret = L"";\
 	for(auto i : obj##DSAutoFuncMap)\
 	{\
@@ -248,6 +255,7 @@ DSReturn obj::FuncInfor(DSStr* ret)\
 }\
 DSReturn obj::ObjectName(DSStr* ret)\
 {\
+	DSCODELOCK(this);\
 	*ret = L#obj;\
 	return DSFINE;\
 }\
@@ -273,6 +281,7 @@ public:\
 auto obj##Hand = new obj##FactoryHand(L#obj);\
 DSReturn obj::AutoFunc(DSStr setFunc...)\
 {\
+	DSCODELOCK(this);\
 	DSReturn ret = DSFAIL;\
 	va_list argc;\
 	va_start(argc, setFunc);\

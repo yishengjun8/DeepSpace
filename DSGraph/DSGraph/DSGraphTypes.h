@@ -12,7 +12,7 @@ namespace DeepSpace
         ~DSRectF();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        DSBase& operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
         DSReturn Init(FLOAT setX, FLOAT setY, FLOAT setWidth, FLOAT setHeight);
     
     public:
@@ -69,7 +69,7 @@ namespace DeepSpace
         ~DSSizeF();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
         DSReturn Init(FLOAT setWidth, FLOAT setHeight);
     public:
         DSReturn SetD2D1SizeF(D2D1_SIZE_F* set);
@@ -101,7 +101,7 @@ namespace DeepSpace
         ~DSPointF();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
         DSReturn Init(FLOAT setX, FLOAT setY);
     public:
         DSReturn SetD2D1PointF(D2D1_POINT_2F* set);
@@ -131,7 +131,7 @@ namespace DeepSpace
         ~DSColorF();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
         DSReturn Init(FLOAT setA, FLOAT setR, FLOAT setG, FLOAT setB);
     public:
         DSReturn SetD2D1ColorF(D2D1_COLOR_F* set);

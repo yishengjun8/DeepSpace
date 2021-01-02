@@ -28,7 +28,7 @@ DSBase& DeepSpace::DSGraph::operator=(DSBase& rhs)
 	return *this;
 }
 
-bool DeepSpace::DSGraph::operator==(DSBase& rhs)
+BOOL DeepSpace::DSGraph::operator==(DSBase& rhs)
 {
-	return false;
+	return 0;
 }

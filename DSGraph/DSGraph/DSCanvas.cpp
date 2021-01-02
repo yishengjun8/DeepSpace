@@ -25,7 +25,7 @@ DSBase& DeepSpace::DSCanvas::operator=(DSBase& rhs)
 	return *this;
 }
 
-bool DeepSpace::DSCanvas::operator==(DSBase& rhs)
+BOOL DeepSpace::DSCanvas::operator==(DSBase& rhs)
 {
-	return false;
+	return 0;
 }

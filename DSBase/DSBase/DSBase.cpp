@@ -26,6 +26,7 @@ DSReturn __DeepSpace::DSRegisterObject(DSStr object, DSFactoryHand* hand)
 DeepSpace::DSBase::DSBase()
 {
 	InitializeCriticalSection(&myCriticalSection);
+	myFloor = 0;
 }
 
 DeepSpace::DSBase::~DSBase()
@@ -36,19 +37,22 @@ DeepSpace::DSBase::~DSBase()
 
 DSReturn DeepSpace::DSBase::Clone(DSBase** ret)
 {
+	DSCODELOCK(this);
 	*ret = new DSBase;
+	(*ret)->myFloor = myFloor;
 	return DSFINE;
 }
 
 DSBase& DeepSpace::DSBase::operator=(DSBase& rhs)
 {
-	// TODO: 在此处插入 return 语句
+	DSCODELOCK(this);
+	myFloor = rhs.myFloor;
 	return *this;
 }
 
-bool DeepSpace::DSBase::operator==(DSBase& rhs)
+BOOL DeepSpace::DSBase::operator==(DSBase& rhs)
 {
-	return true;
+	return myFloor == rhs.myFloor;
 }
 
 DSReturn DeepSpace::DSBase::AutoFunc(DSStr func ...)
@@ -58,17 +62,29 @@ DSReturn DeepSpace::DSBase::AutoFunc(DSStr func ...)
 
 DSReturn DeepSpace::DSBase::FuncName(DSStr* ret)
 {
+	DSCODELOCK(this);
+	*ret = L"";
 	return DSFINE;
 }
 
 DSReturn DeepSpace::DSBase::FuncInfor(DSStr* ret)
 {
+	DSCODELOCK(this);
+	*ret = L"";
 	return DSFINE;
 }
 
 DSReturn DeepSpace::DSBase::ObjectName(DSStr* ret)
 {
+	DSCODELOCK(this);
 	*ret = L"DSBase";
+	return DSFINE;
+}
+
+DSReturn DeepSpace::DSBase::ObjectFloor(UINT* ret)
+{
+	DSCODELOCK(this);
+	*ret = myFloor;
 	return DSFINE;
 }
 

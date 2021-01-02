@@ -30,6 +30,11 @@ DSBase& DeepSpace::DSBaseTest01::operator=(DSBase& rhs)
 	return *this;
 }
 
+BOOL DeepSpace::DSBaseTest01::operator==(DSBase& rhs)
+{
+	return 0;
+}
+
 DSReturn DeepSpace::DSBaseTest01::SayHello(int set)
 {
 	DSCODELOCK(this);

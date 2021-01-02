@@ -12,6 +12,7 @@ namespace DeepSpace
         DSBaseTest01();
         ~DSBaseTest01();
         DSReturn Clone(DSBase** ret);
+        BOOL operator==(DSBase& rhs);
         DSBase& operator=(DSBase& rhs);
 
     public:

@@ -31,7 +31,7 @@
 /**/
 #endif
 
-//公开 类型
+//公开 类 - 模板
 namespace DeepSpace
 {
     class DS_PORT DSGraph;
@@ -60,7 +60,7 @@ namespace DeepSpace
         ~DSGraph();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
 
     public:
         DSReturn SetRect(DSRectF* set);
@@ -90,7 +90,7 @@ namespace DeepSpace
         ~DSCanvas();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
 
     public:
         DSReturn SetWnd(HWND set);
@@ -120,7 +120,7 @@ namespace DeepSpace
         ~DSImage();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
 
     public:
         DSReturn Paint();
@@ -158,7 +158,7 @@ namespace DeepSpace
         ~DSWorld();
         DSReturn Clone(DSBase** ret);
         DSBase& operator=(DSBase& rhs);
-        bool operator==(DSBase& rhs);
+        BOOL operator==(DSBase& rhs);
 
     public:
         DSReturn Paint();
@@ -171,7 +171,13 @@ namespace DeepSpace
         DSReturn GetText(DSStr* ret);
 
         DSReturn SetTextSize(FLOAT set);
-        DSReturn GetTextSize(FLOAT ret);
+        DSReturn GetTextSize(FLOAT* ret);
+
+        DSReturn SetTextColorF(DSColorF* set);
+        DSReturn GetTextColorF(DSColorF* ret);
+
+        DSReturn SetTextAlignment(UCHAR set);
+        DSReturn GetTextAlignment(UCHAR* ret);
 
         DSReturn SetRect(DSRectF* set);
         DSReturn SetSize(DSSizeF* set);
