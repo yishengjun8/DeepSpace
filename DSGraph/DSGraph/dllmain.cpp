@@ -7,9 +7,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
     {
+        CoInitialize(NULL);
     }break;
     case DLL_PROCESS_DETACH:
     {
+        CoUninitialize();
     }break;
 
     case DLL_THREAD_ATTACH:

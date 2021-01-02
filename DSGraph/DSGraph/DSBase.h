@@ -17,7 +17,7 @@
 * 
 * 可选
 * 1、每次调用方法之后，都判断 DSReturn，是否成功
-* 2、实现类的 'operator==' ，以方便判断两个对象是否相等
+* 2、
 * 
 * 
 * 必要知识
@@ -29,9 +29,6 @@
 *	'Hello()'，调用顺序为：类0::Hello()->类2::Hello()。
 */
 #ifdef DS_BUILDING
-#ifdef DS_PORT
-#undef DS_PORT
-#endif
 #define DS_PORT __declspec(dllexport)
 #else
 #define DS_PORT __declspec(dllimport)
@@ -156,7 +153,6 @@ namespace DeepSpace
 		virtual ~DSBase();
 		virtual DSReturn Clone(DSBase** ret);
 		virtual DSBase& operator=(DSBase& rhs);
-		virtual bool operator==(DSBase& rhs);
 
 	public: 
 		virtual DSReturn AutoFunc(DSStr func...);

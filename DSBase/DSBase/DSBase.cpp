@@ -34,6 +34,23 @@ DeepSpace::DSBase::~DSBase()
 	DeleteCriticalSection(&myCriticalSection);
 }
 
+DSReturn DeepSpace::DSBase::Clone(DSBase** ret)
+{
+	*ret = new DSBase;
+	return DSFINE;
+}
+
+DSBase& DeepSpace::DSBase::operator=(DSBase& rhs)
+{
+	// TODO: 在此处插入 return 语句
+	return *this;
+}
+
+bool DeepSpace::DSBase::operator==(DSBase& rhs)
+{
+	return true;
+}
+
 DSReturn DeepSpace::DSBase::AutoFunc(DSStr func ...)
 {
 	return DSFINE;
