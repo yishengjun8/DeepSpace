@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DSGraph.h"
+#include "DSGraphTypes.h"
 using namespace DeepSpace;
 
 DSOBJECT_INIT_0(DSWorld)
@@ -28,4 +29,84 @@ DSBase& DeepSpace::DSWorld::operator=(DSBase& rhs)
 BOOL DeepSpace::DSWorld::operator==(DSBase& rhs)
 {
 	return 0;
+}
+
+DSReturn DeepSpace::DSWorld::Draw()
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetCanvas(DSCanvas* set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::GetCanvas(DSCanvas** ret)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetText(DSStr set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::GetText(DSStr* ret)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetTextSize(FLOAT set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::GetTextSize(FLOAT* ret)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetTextColor(DSColor* set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::GetTextColor(DSColor* ret)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetTextAlignment(UCHAR set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::GetTextAlignment(UCHAR* ret)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetRect(DSRect* set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetSize(DSSize* set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetPoint(DSPoint* set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::SetCollisionBlock(DSSize set)
+{
+	return DSReturn();
+}
+
+DSReturn DeepSpace::DSWorld::Collision(DSBase* set, BOOL* ret)
+{
+	return DSReturn();
 }

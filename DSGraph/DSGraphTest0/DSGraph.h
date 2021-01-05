@@ -164,7 +164,7 @@ namespace DeepSpace
         DSReturn SetCanvas(DSCanvas* set);
         DSReturn GetCanvas(DSCanvas** ret);
     protected:
-        DSReturn  ResetID2D1Bitmap();
+        DSReturn ResetID2D1Bitmap();
     public:
         DSReturn FromFile(DSStr set);
         DSReturn FromColor(DSStr path);
