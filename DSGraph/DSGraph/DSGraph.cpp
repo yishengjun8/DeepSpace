@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "DSGraph.h"
-#include "DSGraphTypes.h"
-using namespace DeepSpace;
 
 DSOBJECT_INIT_0(DSGraph)
 DSOBJECT_AUTOFUNC_REG(DSGraph, SetRect, 0);
@@ -28,7 +26,6 @@ IWICImagingFactory* gIWICImagingFactory = nullptr;
 DeepSpace::DSGraph::DSGraph()
 {
 	DSCODELOCK(this);
-	myRect = new DSRect;
 }
 
 DeepSpace::DSGraph::~DSGraph()
@@ -40,7 +37,7 @@ DSReturn DeepSpace::DSGraph::Clone(DSBase** ret)
 {
 	DSCODELOCK(this);
 	*ret = new DSGraph;
-	((DSGraph*)(*ret))->SetRect(myRect);
+	((DSGraph*)(*ret))->SetRect(&myRect);
 	return DSFINE;
 }
 
@@ -53,7 +50,7 @@ DSBase& DeepSpace::DSGraph::operator=(DSBase& rhs)
 		DS_SECCESS(rhs.AutoFunc(L"GetWidth", &tW)) &&
 		DS_SECCESS(rhs.AutoFunc(L"GetHeight", &tH)) )
 	{
-		myRect->Init(tX, tY, tW, tH);
+		myRect.Init(tX, tY, tW, tH);
 	}
 	return *this;
 }
@@ -64,7 +61,7 @@ BOOL DeepSpace::DSGraph::operator==(DSBase& rhs)
 	DSRect* tRect = nullptr;
 	if (DS_SECCESS(rhs.AutoFunc(L"GetRect", &tRect)))
 	{
-		return (*myRect) == (*tRect);
+		return myRect == (*tRect);
 	}
 	return false;
 }
@@ -72,45 +69,45 @@ BOOL DeepSpace::DSGraph::operator==(DSBase& rhs)
 DSReturn DeepSpace::DSGraph::SetRect(DSRect* set)
 {
 	DSCODELOCK(this);
-	*myRect = *set;
+	myRect = *set;
 	return DSFINE;
 }
 
 DSReturn DeepSpace::DSGraph::SetSize(DSSize* set)
 {
 	DSCODELOCK(this);
-	return myRect->SetSize(set);
+	return myRect.SetSize(set);
 }
 
 DSReturn DeepSpace::DSGraph::SetPoint(DSPoint* set)
 {
 	DSCODELOCK(this);
-	return myRect->SetPoint(set);
+	return myRect.SetPoint(set);
 }
 
 DSReturn DeepSpace::DSGraph::GetRect(DSRect* ret)
 {
 	DSCODELOCK(this);
-	*ret = *myRect;
+	*ret = myRect;
 	return DSFINE;
 }
 
 DSReturn DeepSpace::DSGraph::GetSize(DSSize* ret)
 {
 	DSCODELOCK(this);
-	return myRect->GetSize(ret);
+	return myRect.GetSize(ret);
 }
 
 DSReturn DeepSpace::DSGraph::GetPoint(DSPoint* ret)
 {
 	DSCODELOCK(this);
-	return myRect->GetPoint(ret);
+	return myRect.GetPoint(ret);
 }
 
 DSReturn DeepSpace::DSGraph::Collision(DSBase* set, BOOL* ret)
 {
 	DSCODELOCK(this);
-	return myRect->Collision(set, ret);
+	return myRect.Collision(set, ret);
 }
 
 /* ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！ */
@@ -255,10 +252,10 @@ DSReturn DeepSpace::DSIWICBitmapFromFile(IWICBitmap** ret, DSStr set, DSSize* se
 		WICBitmapCacheOnLoad,
 		ret
 	);
-	__SafeRelease(pSource);
-	__SafeRelease(pDecoder);
-	__SafeRelease(pScaler);
-	__SafeRelease(pConverter);
+	SafeRelease(pSource);
+	SafeRelease(pDecoder);
+	SafeRelease(pScaler);
+	SafeRelease(pConverter);
 	return DSFINE;
 }
 
@@ -326,10 +323,10 @@ DSReturn DeepSpace::DSID2D1BitmapFromFile(ID2D1Bitmap** ret, DSStr set, DSSize* 
 		ret
 	);
 
-	__SafeRelease(pSource);
-	__SafeRelease(pDecoder);
-	__SafeRelease(pScaler);
-	__SafeRelease(pConverter);
+	SafeRelease(pSource);
+	SafeRelease(pDecoder);
+	SafeRelease(pScaler);
+	SafeRelease(pConverter);
 	return DSFINE;
 }
 
@@ -385,7 +382,7 @@ DSReturn DeepSpace::DSID2D1BitmapFromIWICBitmap(ID2D1Bitmap** ret, IWICBitmap* s
 		ret
 	);
 
-	__SafeRelease(pScaler);
-	__SafeRelease(pConverter);
+	SafeRelease(pScaler);
+	SafeRelease(pConverter);
 	return DSFINE;
 }

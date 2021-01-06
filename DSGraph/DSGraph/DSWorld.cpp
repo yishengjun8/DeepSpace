@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "DSGraph.h"
-#include "DSGraphTypes.h"
-using namespace DeepSpace;
 
 DSOBJECT_INIT_0(DSWorld)
 DSOBJECT_INIT_1(DSWorld)
@@ -102,11 +100,6 @@ DSReturn DeepSpace::DSWorld::SetPoint(DSPoint* set)
 }
 
 DSReturn DeepSpace::DSWorld::SetCollisionBlock(DSSize set)
-{
-	return DSReturn();
-}
-
-DSReturn DeepSpace::DSWorld::Collision(DSBase* set, BOOL* ret)
 {
 	return DSReturn();
 }

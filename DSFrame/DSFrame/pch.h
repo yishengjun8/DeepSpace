@@ -7,7 +7,10 @@
 #ifndef PCH_H
 #define PCH_H
 
-// 添加要在此处预编译的标头
-#include "framework.h"
 
+
+#include "DSGraph.h"
+/* DSBase */
+#define DS_BUILDING
+/**/
 #endif //PCH_H
