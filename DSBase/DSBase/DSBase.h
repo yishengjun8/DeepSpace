@@ -61,6 +61,8 @@ namespace DeepSpace
 {
 	DS_PORT typedef long DSReturn;
 	DS_PORT typedef std::wstring DSStr;
+
+	DS_PORT typedef std::string DSStrA;
 }
 
 //公开 类 - 模板
@@ -70,14 +72,13 @@ namespace DeepSpace
 	class DS_PORT DSLock;
 
 	//DS模板
-
 }
 
 //公开 函数
 namespace DeepSpace
 {
 	//DS工厂
-	DS_PORT DSReturn DSFactory(DSStr object, DSBase** ret);
+	DS_PORT DSReturn DSBaseFactory(DSStr object, DSBase** ret);
 }
 
 //公开 宏

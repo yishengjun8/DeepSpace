@@ -34,7 +34,7 @@ namespace DeepSpace
 		HINSTANCE myInstance;
 		HWND myWnd;
 	public:
-		DSReturn Init(DSRect* setRect, DSStr setPath);
+		DSReturn Init(DSRect* set, DSStr setName);
 		DSReturn Run();
 
 		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

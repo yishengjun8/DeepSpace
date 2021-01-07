@@ -18,7 +18,7 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DSFrame.h">
+    <ClInclude Include="DSConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,13 +29,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DSFrame.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSModule.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DSModuleServe.cpp">
+    <ClCompile Include="DSConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@ using namespace __DeepSpace;
 std::map<DSStr, DSFactoryHand*> DSFactoryMap;
 typedef std::map<DSStr, DSFactoryHand*>::value_type DSFactoryValue;
 
-DSReturn DeepSpace::DSFactory(DSStr object, DSBase** ret)
+DSReturn DeepSpace::DSBaseFactory(DSStr object, DSBase** ret)
 {
 	auto iter = DSFactoryMap.find(object);
 	if (iter != DSFactoryMap.end())
