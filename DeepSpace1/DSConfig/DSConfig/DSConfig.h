@@ -21,6 +21,10 @@ namespace DeepSpace
 {
 	class DSConfig
 	{
+
+
+	public:
+
 	};
 }
 
